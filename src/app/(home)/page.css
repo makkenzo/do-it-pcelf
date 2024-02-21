@@ -1,38 +1,34 @@
 .hero {
-  width: 100%;
-  margin-bottom: 100px;
-  padding: 66px 200px 0 200px;
-  display: flex;
-  justify-content: space-between;
-  background-color: #252525;
+    width: 100%;
+    margin-bottom: 100px;
+    padding: 66px 200px 0 200px;
+    display: flex;
+    justify-content: space-between;
+    background-color: #252525;
 }
 
 .hero-title {
-  color: white;
+    color: white;
 }
 
 .hero-title nav {
-  font-size: 40px;
+    font-size: 40px;
 }
 
 .hero-title span {
-  font-size: 30px;
-  display: flex;
-  margin-top: 40px;
+    font-size: 30px;
+    display: flex;
+    margin-top: 40px;
 }
 
 .hero-title span h3 {
-  color: orange;
-  margin-left: 10px;
+    color: orange;
+    margin-left: 10px;
 }
-
-
 
 .companies {
-  margin: 0 auto;
+    margin: 0 auto;
 }
-
-
 
 .salers {
     margin: 100px 200px;
@@ -85,9 +81,8 @@
     margin: 10px;
 } */
 
-
 .slider {
-  width: 100%;
-  display: flex;
-  justify-content: center;
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
