@@ -73,6 +73,6 @@
     body {
         @apply bg-background text-foreground;
         background-color: #1c1c1c;
-        padding-top: 140px;
+        padding-top: 104px;
     }
 }

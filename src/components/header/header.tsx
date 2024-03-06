@@ -1,4 +1,4 @@
-import './header.css'
+import Link from "next/link";
 
 import Logo from '../img/logo.png'
 import Search from '../img/search.png'
@@ -8,16 +8,16 @@ interface HeaderProps {}
 
 const Header = ({}: HeaderProps) => {
     return (
-        <header className="Header">
+        <header className="w-full fixed top-0 flex justify-around py-5 bg-neutral-800 z-10">
         <img src={Logo.src}/>
-        <div className="header-links">
-            <a>Главная</a>
-            <a>Каталог</a>
-            <a>Корзина</a>
+        <div className="py-4">
+            <Link href='/' className='text-white text-2xl px-12 py-2 duration-300 rounded cursor-pointer hover:bg-neutral-900 active:underline'>Главная</Link>
+            <Link href='/catalog' className='text-white text-2xl px-12 py-2 duration-300 rounded cursor-pointer hover:bg-neutral-900 active:underline'>Каталог</Link>
+            <a className='text-white text-2xl px-12 py-2 duration-300 rounded cursor-pointer hover:bg-neutral-900 active:underline'>Корзина</a>
         </div>
-        <div className="tools">
-            <img src={Search.src}/>
-            <img src={Profile.src}/>
+        <div className="flex">
+            <img className='w-16 h-16' src={Search.src}/>
+            <img className='w-16 h-16' src={Profile.src}/>
         </div>
     </header>
     );

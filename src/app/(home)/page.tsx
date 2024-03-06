@@ -1,9 +1,7 @@
 'use client';
 
-import './page.css';
-
 // import { UserButton } from '@clerk/nextjs';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import { EmblaOptionsType } from 'embla-carousel';
 import { useScroll, useTransform } from 'framer-motion';
@@ -15,9 +13,16 @@ import Header from '../../components/header/header';
 
 import server from '@/lib/api';
 import { ICard } from '@/types';
+
 import Banner from '../../components/img/banner.png';
-import Companies from '../../components/img/companies.png';
 import Image from 'next/image';
+import Apple from '../../components/img/apple.png'
+import Sony from '../../components/img/sony.png'
+import Samsung from '../../components/img/samsung.png'
+import Canon from '../../components/img/canon.png'
+import Huawei from '../../components/img/huawei.png'
+import Lenovo from '../../components/img/lenovo.png'
+
 
 export default function Home() {
     const [data, setData] = useState<ICard[]>([]);
@@ -54,21 +59,28 @@ export default function Home() {
         <div className="w-full dark:border dark:border-white/[0.1] rounded-md relative overflow-clip" ref={ref}>
             <Header />
 
-            <div className="hero">
-                <div className="hero-title">
-                    <nav>Ого!</nav>
-                    <span>
-                        Это же <h3>бузулукский колбас!</h3>
+            <div className="w-full mb-20 flex justify-around px-48 pt-16 bg-neutral-900">
+                <div className="text-white">
+                    <nav className='text-4xl'>Ого!</nav>
+                    <span className='text-3xl flex mt-10'>
+                        Это же <h3 className='text-orange-500 ml-2'>бузулукский колбас!</h3>
                     </span>
                 </div>
                 <img src={Banner.src} />
             </div>
 
-            <img className="companies" src={Companies.src} />
+            <div className='flex justify-around px-40'>
+                <a><img className='pt-1' src={Apple.src}/></a>
+                <a><img className='pt-5' src={Sony.src}/></a>
+                <a><img className='pt-5' src={Samsung.src}/></a>
+                <a><img className='pt-5' src={Canon.src}/></a>
+                <a><img src={Huawei.src}/></a>
+                <a><img className='pt-5' src={Lenovo.src}/></a>
+            </div>
 
-            <div className="salers">
-                <nav className="salers-nav">ХИТ ПРОДАЖ</nav>
-                <div className="saler">
+            <div className="mx-52 my-24">
+                <nav className="w-full pb-2 text-3xl text-white border-b-2 border-white mb-20">ХИТ ПРОДАЖ</nav>
+                <div className="flex mb-14 px-10">
                     <Carousel
                         opts={{
                             align: 'start',
@@ -82,12 +94,15 @@ export default function Home() {
                                     <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/5">
                                         <div className="p-1">
                                             <Card>
-                                                <CardHeader>
-                                                    <CardTitle>{item.name.slice(0, 30) + '...'}</CardTitle>
-                                                </CardHeader>
-                                                <CardContent className="flex aspect-square items-center justify-center p-6">
+                                                <CardHeader className='border-b-2 border-neutral-500'>
                                                     <Image src={item.image} alt="card" width={200} height={200} />
+                                                </CardHeader>
+                                                <CardContent className="items-center justify-center p-6">
+                                                    <CardTitle>{item.name.slice(0, 27) + '...'}</CardTitle>
                                                 </CardContent>
+                                                <CardFooter>
+                                                    {item.price}тг
+                                                </CardFooter>
                                             </Card>
                                         </div>
                                     </CarouselItem>
@@ -96,11 +111,6 @@ export default function Home() {
                         <CarouselPrevious />
                         <CarouselNext />
                     </Carousel>
-                    {/* <div className='category-blocks'>
-                        <div className=''><img /></div>
-                        <nav>Название</nav>
-                        <span>Цена</span>
-                    </div> */}
                 </div>
             </div>
 
