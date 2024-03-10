@@ -101,7 +101,7 @@ export default function Home() {
                                                     <CardTitle>{item.name.slice(0, 27) + '...'}</CardTitle>
                                                 </CardContent>
                                                 <CardFooter>
-                                                    {item.price}тг
+                                                    {item.price.toLocaleString('ru-RU')}тг
                                                 </CardFooter>
                                             </Card>
                                         </div>

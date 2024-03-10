@@ -26,10 +26,17 @@ import Image from 'next/image';
 
 import Header from '../../components/header/header'
 
+import cart from '../../components/img/shopping-cart.png'
+import cartHover from '../../components/img/shopping-cart-hover.png'
+import star from '../../components/img/Star.png'
+import heart from '../../components/img/heart.png'
+
 interface CatalogProps {}
 
 const Catalog = ({}: CatalogProps) => {
     const [data, setData] = useState<ICard[]>([]);
+    const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+    const [buttonHovered, setButtonHovered] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -177,10 +184,38 @@ const Catalog = ({}: CatalogProps) => {
                         {data &&
                             data.length > 0 &&
                             data.map((item, index) => (
-                                <div key={index} className="w-72 bg-white p-4 rounded-xl shadow-white drop-shadow-lg m-4">
-                                    <Image src={item.image} alt="card" width={256} height={190} className="pb-4 border-b-2 border-neutral-700 mb-4" />
-                                    <nav className="text-sm">{item.name.slice(0, 30) + '...'}</nav>
+                            <div
+                                key={index}
+                                className="w-72 bg-white p-4 rounded-xl shadow-white drop-shadow-lg m-4"
+                                onMouseEnter={() => setHoveredIndex(index)}
+                                onMouseLeave={() => setHoveredIndex(null)}
+                            >
+                                <Image src={item.image} alt="card" width={256} height={190} className="pb-4 border-b-2 border-neutral-700 mb-4" />
+                                <nav className="text-sm">{item.name.slice(0, 30) + '...'}</nav>
+                                <div className="flex justify-between mt-4 text-base">
+                                    {hoveredIndex !== index ? (
+                                        <>
+                                        <nav>{item.price.toLocaleString('ru-RU')}тг</nav>
+                                        <nav><img src={star.src} alt="star" /></nav>
+                                        </>
+                                    ) : (
+                                        <>
+                                        <button
+                                            className="flex mr-2 p-2 border-2 rounded-lg border-neutral-500 text-neutral-500 opacity-80 text-base
+                                            duration-300 hover:opacity-100 hover:border-blue-500 hover:text-blue-500"
+                                            onMouseEnter={() => setButtonHovered(true)}
+                                            onMouseLeave={() => setButtonHovered(false)}
+                                        >
+                                            {buttonHovered ? <img src={cartHover.src} className="mr-2"/> : <img src={cart.src} className="mr-2"/>}
+                                            Добавить в корзину
+                                        </button>
+                                        <button className="">
+                                            <img src={heart.src}/>
+                                        </button>
+                                        </>
+                                    )}
                                 </div>
+                            </div>
                         ))}
                     </div>
                 </div>
