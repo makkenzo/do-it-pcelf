@@ -35,9 +35,12 @@ const Header = ({}: HeaderProps) => {
                 >
                     Каталог
                 </Link>
-                <a className="text-white text-xl px-12 py-2 duration-300 rounded cursor-pointer hover:bg-neutral-900 active:underline">
+                <Link
+                    href="/basket"
+                    className="text-white text-xl px-12 py-2 duration-300 rounded cursor-pointer hover:bg-neutral-900 active:underline"
+                >
                     Корзина
-                </a>
+                </Link>
             </div>
             <div className="flex gap-4 items-center">
                 <Search className="w-8 h-8 text-white" />
