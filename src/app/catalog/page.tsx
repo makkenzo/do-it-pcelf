@@ -190,7 +190,8 @@ const Catalog = ({}: CatalogProps) => {
                                 onMouseEnter={() => setHoveredIndex(index)}
                                 onMouseLeave={() => setHoveredIndex(null)}
                             >
-                                <Image src={item.image} alt="card" width={256} height={190} className="pb-4 border-b-2 border-neutral-700 mb-4" />
+                                <Image src={item.image} alt="card" width={256} height={190} className="pb-4 border-b-2 border-neutral-700 mb-4 
+                                hover:border-blue-500" />
                                 <nav className="text-sm">{item.name.slice(0, 30) + '...'}</nav>
                                 <div className="flex justify-between mt-4 text-base">
                                     {hoveredIndex !== index ? (
