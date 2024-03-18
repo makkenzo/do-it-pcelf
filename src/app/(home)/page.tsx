@@ -16,13 +16,14 @@ import { ICard } from '@/types';
 
 import Banner from '../../components/img/banner.png';
 import Image from 'next/image';
-import Apple from '../../components/img/apple.png'
-import Sony from '../../components/img/sony.png'
-import Samsung from '../../components/img/samsung.png'
-import Canon from '../../components/img/canon.png'
-import Huawei from '../../components/img/huawei.png'
-import Lenovo from '../../components/img/lenovo.png'
-
+import Apple from '../../components/img/apple.png';
+import Sony from '../../components/img/sony.png';
+import Samsung from '../../components/img/samsung.png';
+import Canon from '../../components/img/canon.png';
+import Huawei from '../../components/img/huawei.png';
+import Lenovo from '../../components/img/lenovo.png';
+import { Provider } from 'react-redux';
+import store from '@/store/store';
 
 export default function Home() {
     const [data, setData] = useState<ICard[]>([]);
@@ -56,69 +57,81 @@ export default function Home() {
     }, []);
 
     return (
-        <div className="w-full dark:border dark:border-white/[0.1] rounded-md relative overflow-clip" ref={ref}>
-            <Header />
+        <Provider store={store}>
+            <div className="w-full dark:border dark:border-white/[0.1] rounded-md relative overflow-clip" ref={ref}>
+                <Header />
 
-            <div className="w-full mb-20 flex justify-around px-48 pt-16 bg-neutral-900">
-                <div className="text-white">
-                    <nav className='text-4xl'>Ого!</nav>
-                    <span className='text-3xl flex mt-10'>
-                        Это же <h3 className='text-orange-500 ml-2'>бузулукский колбас!</h3>
-                    </span>
+                <div className="w-full mb-20 flex justify-around px-48 pt-16 bg-neutral-900">
+                    <div className="text-white">
+                        <nav className="text-4xl">Ого!</nav>
+                        <span className="text-3xl flex mt-10">
+                            Это же <h3 className="text-orange-500 ml-2">бузулукский колбас!</h3>
+                        </span>
+                    </div>
+                    <img src={Banner.src} />
                 </div>
-                <img src={Banner.src} />
-            </div>
 
-            <div className='flex justify-around px-40'>
-                <a><img className='pt-1' src={Apple.src}/></a>
-                <a><img className='pt-5' src={Sony.src}/></a>
-                <a><img className='pt-5' src={Samsung.src}/></a>
-                <a><img className='pt-5' src={Canon.src}/></a>
-                <a><img src={Huawei.src}/></a>
-                <a><img className='pt-5' src={Lenovo.src}/></a>
-            </div>
-
-            <div className="mx-52 my-24">
-                <nav className="w-full pb-2 text-3xl text-white border-b-2 border-white mb-20">ХИТ ПРОДАЖ</nav>
-                <div className="flex mb-14 px-10">
-                    <Carousel
-                        opts={{
-                            align: 'start',
-                        }}
-                        className="w-full"
-                    >
-                        <CarouselContent>
-                            {data &&
-                                data.length > 0 &&
-                                data.map((item, index) => (
-                                    <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/5">
-                                        <div className="p-1">
-                                            <Card>
-                                                <CardHeader className='border-b-2 border-neutral-500'>
-                                                    <Image src={item.image} alt="card" width={200} height={200} />
-                                                </CardHeader>
-                                                <CardContent className="items-center justify-center p-6">
-                                                    <CardTitle>{item.name.slice(0, 27) + '...'}</CardTitle>
-                                                </CardContent>
-                                                <CardFooter>
-                                                    {item.price.toLocaleString('ru-RU')}тг
-                                                </CardFooter>
-                                            </Card>
-                                        </div>
-                                    </CarouselItem>
-                                ))}
-                        </CarouselContent>
-                        <CarouselPrevious />
-                        <CarouselNext />
-                    </Carousel>
+                <div className="flex justify-around px-40">
+                    <a>
+                        <img className="pt-1" src={Apple.src} />
+                    </a>
+                    <a>
+                        <img className="pt-5" src={Sony.src} />
+                    </a>
+                    <a>
+                        <img className="pt-5" src={Samsung.src} />
+                    </a>
+                    <a>
+                        <img className="pt-5" src={Canon.src} />
+                    </a>
+                    <a>
+                        <img src={Huawei.src} />
+                    </a>
+                    <a>
+                        <img className="pt-5" src={Lenovo.src} />
+                    </a>
                 </div>
+
+                <div className="mx-52 my-24">
+                    <nav className="w-full pb-2 text-3xl text-white border-b-2 border-white mb-20">ХИТ ПРОДАЖ</nav>
+                    <div className="flex mb-14 px-10">
+                        <Carousel
+                            opts={{
+                                align: 'start',
+                            }}
+                            className="w-full"
+                        >
+                            <CarouselContent>
+                                {data &&
+                                    data.length > 0 &&
+                                    data.map((item, index) => (
+                                        <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/5">
+                                            <div className="p-1">
+                                                <Card>
+                                                    <CardHeader className="border-b-2 border-neutral-500">
+                                                        <Image src={item.image} alt="card" width={200} height={200} />
+                                                    </CardHeader>
+                                                    <CardContent className="items-center justify-center p-6">
+                                                        <CardTitle>{item.name.slice(0, 27) + '...'}</CardTitle>
+                                                    </CardContent>
+                                                    <CardFooter>{item.price.toLocaleString('ru-RU')}тг</CardFooter>
+                                                </Card>
+                                            </div>
+                                        </CarouselItem>
+                                    ))}
+                            </CarouselContent>
+                            <CarouselPrevious />
+                            <CarouselNext />
+                        </Carousel>
+                    </div>
+                </div>
+
+                <section className="sandbox__carousel">
+                    <EmblaCarousel slides={SLIDES} options={OPTIONS} />
+                </section>
+
+                <Footer />
             </div>
-
-            <section className="sandbox__carousel">
-                <EmblaCarousel slides={SLIDES} options={OPTIONS} />
-            </section>
-
-            <Footer />
-        </div>
+        </Provider>
     );
 }
