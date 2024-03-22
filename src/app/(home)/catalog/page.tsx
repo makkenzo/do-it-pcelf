@@ -24,12 +24,12 @@ import server from '@/lib/api';
 import { ICard } from '@/types';
 import Image from 'next/image';
 
-import Header from '../../components/header/header'
+import Header from '@/components/header/header'
 
-import cart from '../../components/img/shopping-cart.png'
-import cartHover from '../../components/img/shopping-cart-hover.png'
-import star from '../../components/img/Star.png'
-import heart from '../../components/img/heart.png'
+import cart from '../../../../public/img/shopping-cart.png'
+import cartHover from '../../../../public/img/shopping-cart-hover.png'
+import star from '../../../../public/img/Star.png'
+import heart from '../../../../public/img/heart.png'
 
 interface CatalogProps {}
 
@@ -41,6 +41,8 @@ const Catalog = ({}: CatalogProps) => {
     useEffect(() => {
         const fetchData = async () => {
             const response = await server.get('/products/get-products', { params: { page: 1, limit: 8 } });
+            console.log(response.data.data);
+            
 
             if (response.status === 200) {
                 setData(response.data.data);
