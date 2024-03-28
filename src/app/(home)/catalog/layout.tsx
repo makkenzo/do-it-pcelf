@@ -1,8 +1,6 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import '@/app/globals.css';
-import { ClerkProvider } from '@clerk/nextjs';
-import { neobrutalism } from '@clerk/themes';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -18,13 +16,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-            <ClerkProvider
-                appearance={{
-                    baseTheme: neobrutalism,
-                }}
-            >
-                <body className={inter.className}>{children}</body>
-            </ClerkProvider>
+            <body className={inter.className}>{children}</body>
         </html>
     );
 }
