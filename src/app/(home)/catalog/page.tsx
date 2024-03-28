@@ -1,13 +1,13 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Checkbox } from '@/components/ui/checkbox';
-import { Switch } from '@/components/ui/switch';
 import { Input } from '@/components/ui/input';
-import { Slider } from '@/components/ui/slider';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Slider } from '@/components/ui/slider';
+import { Switch } from '@/components/ui/switch';
 
 import server from '@/lib/api';
 import { ICard } from '@/types';
@@ -15,14 +15,17 @@ import Image from 'next/image';
 
 import Header from '@/components/header/header';
 
-import cart from '@/../public/img/shopping-cart.png';
-import cartHover from '@/../public/img/shopping-cart-hover.png';
 import star from '@/../public/img/Star.png';
 import heart from '@/../public/img/heart.png';
+import cartHover from '@/../public/img/shopping-cart-hover.png';
+import cart from '@/../public/img/shopping-cart.png';
+import { useUser } from '@clerk/nextjs';
 
 interface CatalogProps {}
 
 const Catalog = ({}: CatalogProps) => {
+    const { isSignedIn, user, isLoaded } = useUser();
+
     const [data, setData] = useState<ICard[]>([]);
     const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
     const [buttonHovered, setButtonHovered] = useState(false);
@@ -30,6 +33,7 @@ const Catalog = ({}: CatalogProps) => {
     useEffect(() => {
         const fetchData = async () => {
             const response = await server.get('/products/get-products', { params: { page: 1, limit: 8 } });
+            console.log(response.data.data);
 
             if (response.status === 200) {
                 setData(response.data.data);
@@ -38,6 +42,25 @@ const Catalog = ({}: CatalogProps) => {
 
         fetchData();
     }, []);
+
+    const handleAddToCard = (item: ICard) => {
+        if (!user) {
+            return;
+        }
+
+        try {
+            const data = {
+                item_id: item._id,
+                user_id: user.id,
+            };
+
+            const response = server.post('/user/add-to-cart', data);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    //
 
     return (
         <div>
@@ -237,6 +260,7 @@ const Catalog = ({}: CatalogProps) => {
                                             duration-300 hover:opacity-100 hover:border-blue-500 hover:text-blue-500"
                                                     onMouseEnter={() => setButtonHovered(true)}
                                                     onMouseLeave={() => setButtonHovered(false)}
+                                                    onClick={() => handleAddToCard(item)}
                                                 >
                                                     {buttonHovered ? (
                                                         <img src={cartHover.src} className="mr-2" />
