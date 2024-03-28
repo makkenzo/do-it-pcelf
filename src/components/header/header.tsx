@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 
-import Logo from '../img/logo.png';
+import Logo from '../../../public/img/logo.png';
 import { User } from 'lucide-react';
 import { Search } from 'lucide-react';
 import { UserButton, useAuth } from '@clerk/nextjs';

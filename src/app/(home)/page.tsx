@@ -6,22 +6,22 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import { EmblaOptionsType } from 'embla-carousel';
 import { useScroll, useTransform } from 'framer-motion';
 import { ElementRef, useEffect, useRef, useState } from 'react';
-import EmblaCarousel from '../../components/ui/slider/EmblaCarousel';
+import EmblaCarousel from '@/components/ui/slider/EmblaCarousel';
 
-import Footer from '../../components/footer/footer';
-import Header from '../../components/header/header';
+import Footer from '@/components/footer/footer';
+import Header from '@/components/header/header';
 
 import server from '@/lib/api';
 import { ICard } from '@/types';
 
-import Banner from '../../components/img/banner.png';
+import Banner from '../../../public/img/banner.png';
 import Image from 'next/image';
-import Apple from '../../components/img/apple.png';
-import Sony from '../../components/img/sony.png';
-import Samsung from '../../components/img/samsung.png';
-import Canon from '../../components/img/canon.png';
-import Huawei from '../../components/img/huawei.png';
-import Lenovo from '../../components/img/lenovo.png';
+import Apple from '../../../public/img/apple.png';
+import Sony from '../../../public/img/sony.png';
+import Samsung from '../../../public/img/samsung.png';
+import Canon from '../../../public/img/canon.png';
+import Huawei from '../../../public/img/huawei.png';
+import Lenovo from '../../../public/img/lenovo.png';
 import { Provider } from 'react-redux';
 import store from '@/store/store';
 
