@@ -59,6 +59,8 @@ const Catalog = ({}: CatalogProps) => {
         }
     };
 
+    //
+
     return (
         <div>
             <Header />
