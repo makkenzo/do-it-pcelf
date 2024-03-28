@@ -1,6 +1,8 @@
 import axios from 'axios';
 
-const baseURL: string = 'https://dip-api.vercel.app';
+const isDev = process.env.NODE_ENV === 'development';
+
+const baseURL: string = isDev ? 'http://127.0.0.1:8000' : 'https://dip-api.vercel.app';
 
 const server = axios.create({ baseURL: baseURL });
 
