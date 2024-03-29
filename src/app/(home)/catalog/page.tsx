@@ -15,11 +15,9 @@ import Image from 'next/image';
 
 import Header from '@/components/header/header';
 
-import star from '@/../public/img/Star.png';
-import heart from '@/../public/img/heart.png';
-import cartHover from '@/../public/img/shopping-cart-hover.png';
-import cart from '@/../public/img/shopping-cart.png';
+import Card from '@/components/card';
 import { useUser } from '@clerk/nextjs';
+import { Loader2 } from 'lucide-react';
 
 interface CatalogProps {}
 
@@ -27,13 +25,10 @@ const Catalog = ({}: CatalogProps) => {
     const { isSignedIn, user, isLoaded } = useUser();
 
     const [data, setData] = useState<ICard[]>([]);
-    const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-    const [buttonHovered, setButtonHovered] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
             const response = await server.get('/products/get-products', { params: { page: 1, limit: 8 } });
-            console.log(response.data.data);
 
             if (response.status === 200) {
                 setData(response.data.data);
@@ -42,23 +37,6 @@ const Catalog = ({}: CatalogProps) => {
 
         fetchData();
     }, []);
-
-    const handleAddToCard = (item: ICard) => {
-        if (!user) {
-            return;
-        }
-
-        try {
-            const data = {
-                item_id: item._id,
-                user_id: user.id,
-            };
-
-            const response = server.post('/user/add-to-cart', data);
-        } catch (error) {
-            console.error(error);
-        }
-    };
 
     //
 
@@ -227,56 +205,11 @@ const Catalog = ({}: CatalogProps) => {
                     </div>
 
                     <div className="grid grid-cols-3 gap-3">
-                        {data &&
-                            data.length > 0 &&
-                            data.map((item, index) => (
-                                <div
-                                    key={index}
-                                    className="w-72 bg-white p-4 rounded-xl shadow-white drop-shadow-lg m-4"
-                                    onMouseEnter={() => setHoveredIndex(index)}
-                                    onMouseLeave={() => setHoveredIndex(null)}
-                                >
-                                    <Image
-                                        src={item.image}
-                                        alt="card"
-                                        width={256}
-                                        height={190}
-                                        className="pb-4 border-b-2 border-neutral-700 mb-4 
-                                hover:border-blue-500"
-                                    />
-                                    <nav className="text-sm">{item.name.slice(0, 30) + '...'}</nav>
-                                    <div className="flex justify-between mt-4 text-base">
-                                        {hoveredIndex !== index ? (
-                                            <>
-                                                <nav>{item.price.toLocaleString('ru-RU')}тг</nav>
-                                                <nav>
-                                                    <img src={star.src} alt="star" />
-                                                </nav>
-                                            </>
-                                        ) : (
-                                            <>
-                                                <button
-                                                    className="flex mr-2 p-2 border-2 rounded-lg border-neutral-500 text-neutral-500 opacity-80 text-base
-                                            duration-300 hover:opacity-100 hover:border-blue-500 hover:text-blue-500"
-                                                    onMouseEnter={() => setButtonHovered(true)}
-                                                    onMouseLeave={() => setButtonHovered(false)}
-                                                    onClick={() => handleAddToCard(item)}
-                                                >
-                                                    {buttonHovered ? (
-                                                        <img src={cartHover.src} className="mr-2" />
-                                                    ) : (
-                                                        <img src={cart.src} className="mr-2" />
-                                                    )}
-                                                    Добавить в корзину
-                                                </button>
-                                                <button className="">
-                                                    <img src={heart.src} />
-                                                </button>
-                                            </>
-                                        )}
-                                    </div>
-                                </div>
-                            ))}
+                        {data && data.length > 0 ? (
+                            data.map((item, index) => <Card item={item} index={index} />)
+                        ) : (
+                            <p>Loading..</p>
+                        )}
                     </div>
                 </div>
             </div>

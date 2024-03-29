@@ -2,20 +2,13 @@
 
 import Link from 'next/link';
 
-import Logo from '../../../public/img/logo.png';
-import { User } from 'lucide-react';
-import { Search } from 'lucide-react';
 import { UserButton, useAuth } from '@clerk/nextjs';
-import { useEffect } from 'react';
+import { Search, User } from 'lucide-react';
+import Logo from '../../../public/img/logo.png';
 
-interface HeaderProps {}
-
-const Header = ({}: HeaderProps) => {
+const Header = () => {
     // const user = useSelector((state: RootState) => state.user);
-    const { isLoaded, userId, sessionId, getToken } = useAuth();
-    useEffect(() => {
-        console.log('🚀 ~ Header ~ userId:', userId);
-    }, [getToken, sessionId, userId, isLoaded]);
+    const { userId } = useAuth();
 
     return (
         <header className="w-full fixed top-0 flex justify-around py-5 bg-neutral-800 z-10">
