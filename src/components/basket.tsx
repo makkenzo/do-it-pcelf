@@ -29,6 +29,17 @@ const BasketInner = () => {
         fetchData();
     }, [user]);
 
+    const handleDeleteFromCart = async (id: string) => {
+        if (user) {
+            try {
+                const response = await server.delete(`/user/remove-from-cart/${user.id}/${id}`);
+                window.location.reload();
+            } catch (error) {
+                console.error(error);
+            }
+        }
+    };
+
     return (
         <div className="w-full border-t-2 border-blue-500">
             <div className="flex justify-between px-28 pt-12">
@@ -43,7 +54,7 @@ const BasketInner = () => {
                                         <div className="flex justify-between mt-6">
                                             {item.price.toLocaleString('ru-RU')}тг
                                             <div className=" text-neutral-500 text-2xl">
-                                                <button className="mr-6">
+                                                <button className="mr-6" onClick={() => handleDeleteFromCart(item._id)}>
                                                     <img src="/img/trash.png" className="w-6 h-6" />
                                                 </button>
                                             </div>
