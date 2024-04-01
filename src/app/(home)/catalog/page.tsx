@@ -17,6 +17,7 @@ import Header from '@/components/header/header';
 import { useUser } from '@clerk/nextjs';
 
 import ProductCard from '@/components/card';
+import { Toaster } from '@/components/ui/sonner';
 
 interface CatalogProps {}
 
@@ -212,6 +213,7 @@ const Catalog = ({}: CatalogProps) => {
                     </div>
                 </div>
             </div>
+            <Toaster />
         </div>
     );
 };

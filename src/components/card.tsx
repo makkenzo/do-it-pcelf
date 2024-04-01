@@ -57,46 +57,43 @@ const ProductCard = ({ item, index }: ProductCardProps) => {
     };
 
     return (
-        <>
-            <Card className="min-h-[500px] flex flex-col justify-between">
-                <CardHeader>
-                    {/* <CardTitle>{item.name.slice(0, 30)}..</CardTitle> */}
-                    <CardDescription>{item.name}</CardDescription>
-                </CardHeader>
-                <CardContent>
-                    <Link href={`/product/${item._id}`}>
-                        <Image src={item.image} alt="computer" height={272} width={272} />
-                    </Link>
-                    <div className="flex flex-col gap-2 w-full justify-between">
-                        <p className=" font-semibold text-2xl">{item.price}тг.</p>
-                        <div className="flex justify-between">
-                            <p className="flex gap-2 items-center">
-                                <Truck />
-                                {item.shipping.pickup}
-                            </p>
-                            |
-                            <p className="flex gap-2 items-center">
-                                <Package />
-                                {item.shipping.delivery}
-                            </p>
-                        </div>
+        <Card className="min-h-[500px] flex flex-col justify-between">
+            <CardHeader>
+                {/* <CardTitle>{item.name.slice(0, 30)}..</CardTitle> */}
+                <CardDescription>{item.name}</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <Link href={`/product/${item._id}`}>
+                    <Image src={item.image} alt="computer" height={272} width={272} />
+                </Link>
+                <div className="flex flex-col gap-2 w-full justify-between">
+                    <p className=" font-semibold text-2xl">{item.price}тг.</p>
+                    <div className="flex justify-between">
+                        <p className="flex gap-2 items-center">
+                            <Truck />
+                            {item.shipping.pickup}
+                        </p>
+                        |
+                        <p className="flex gap-2 items-center">
+                            <Package />
+                            {item.shipping.delivery}
+                        </p>
                     </div>
-                </CardContent>
-                <CardFooter className="flex w-full gap-4">
-                    <Button
-                        disabled={isPending}
-                        className="w-full text-lg flex gap-2 items-center"
-                        onClick={() => handleAddToProductCard(item)}
-                    >
-                        <ShoppingCart size={20} /> В корзину
-                    </Button>
-                    <Button variant="secondary" disabled={isPending}>
-                        <Heart size={20} />
-                    </Button>
-                </CardFooter>
-            </Card>
-            <Toaster />
-        </>
+                </div>
+            </CardContent>
+            <CardFooter className="flex w-full gap-4">
+                <Button
+                    disabled={isPending}
+                    className="w-full text-lg flex gap-2 items-center"
+                    onClick={() => handleAddToProductCard(item)}
+                >
+                    <ShoppingCart size={20} /> В корзину
+                </Button>
+                <Button variant="secondary" disabled={isPending}>
+                    <Heart size={20} />
+                </Button>
+            </CardFooter>
+        </Card>
     );
 };
 
