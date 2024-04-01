@@ -20,7 +20,7 @@ import { Button } from './ui/button';
 
 interface SideFiltersProps {}
 
-const SideFilters = ({}: SideFiltersProps) => {
+const CatalogInner = ({}: SideFiltersProps) => {
     const { isSignedIn, user, isLoaded } = useUser();
 
     const [data, setData] = useState<ICard[]>([]);
@@ -101,20 +101,10 @@ const SideFilters = ({}: SideFiltersProps) => {
                 </Select>
             </div>
 
-            {/* {Computers} */}
             <div className="grid grid-cols-4">
                 <Filters />
 
                 <div className="col-span-3">
-                    {/* <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-3">
-                        {data && data.length > 0 ? (
-                            data.map((item, index) => <ProductCard item={item} index={index} />)
-                        ) : (
-                            <div className="w-full h-full flex items-center justify-center">
-                                <Loader />
-                            </div>
-                        )}
-                    </div> */}
                     {data && data.length > 0 ? (
                         <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-3">
                             {data.map((item, index) => (
@@ -127,8 +117,7 @@ const SideFilters = ({}: SideFiltersProps) => {
                         </div>
                     )}
 
-                    {/* <CatalogPagination totalProducts={totalProducts} /> */}
-                    <Pagination className="my-8">
+                    <Pagination className="mt-8 mb-28">
                         <PaginationContent>
                             <PaginationItem onClick={handlePreviousPage}>
                                 <PaginationPrevious href="#" />
@@ -145,4 +134,4 @@ const SideFilters = ({}: SideFiltersProps) => {
     );
 };
 
-export default SideFilters;
+export default CatalogInner;

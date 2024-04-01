@@ -12,7 +12,7 @@ const Header = () => {
     const { userId } = useAuth();
 
     return (
-        <div className="sticky top-0 z-10 mb-4 drop-shadow-md">
+        <div className="sticky top-0 z-[100] mb-4 drop-shadow-md">
             <header className="w-full  flex justify-around py-5 bg-white">
                 <Link href="/">
                     <img src={Logo.src} />

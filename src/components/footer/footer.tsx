@@ -1,9 +1,20 @@
-interface FooterProps {}
+import Link from 'next/link';
+import { Button } from '../ui/button';
 
-const Footer = ({}: FooterProps) => {
+interface FooterProps {
+    className?: string;
+}
+
+const Footer = ({ className }: FooterProps) => {
     return (
-        <footer className='w-full py-12 mt-24 bg-neutral-800 flex justify-between'>
-            
+        <footer className={`w-full py-3 mt-24 bg-neutral-800 flex items-center justify-center text-white ${className}`}>
+            <Link href="https://github.com/makkenzo" target="_blank">
+                <Button variant="link">@makkenzo</Button>
+            </Link>
+            <span className="text-3xl pb-2">+</span>
+            <Link href="https://github.com/vladushka_aladushka" target="_blank">
+                <Button variant="link">@vlad</Button>
+            </Link>
         </footer>
     );
 };

@@ -1,9 +1,16 @@
 'use client';
 
-interface LoaderProps {}
+interface LoaderProps {
+    className?: string;
+    size?: number;
+}
 
-const Loader = ({}: LoaderProps) => {
-    return <div className="rounded-md h-12 w-12 border-4 border-t-4 border-rose-500 animate-spin"></div>;
+const Loader = ({ className, size = 12 }: LoaderProps) => {
+    return (
+        <div
+            className={`rounded-md h-${size} w-${size} border-4 border-t-4 border-rose-500 animate-spin ${className}`}
+        ></div>
+    );
 };
 
 export default Loader;

@@ -8,9 +8,11 @@ import { Label } from './ui/label';
 import { RadioGroup, RadioGroupItem } from './ui/radio-group';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 
-interface PaymentMethodProps {}
+interface PaymentMethodProps {
+    disabled?: boolean;
+}
 
-const PaymentMethod = ({}: PaymentMethodProps) => {
+const PaymentMethod = ({ disabled }: PaymentMethodProps) => {
     return (
         <Card>
             <CardHeader>
@@ -18,7 +20,7 @@ const PaymentMethod = ({}: PaymentMethodProps) => {
                 <CardDescription>Добавьте новый способ оплаты в свой аккаунт</CardDescription>
             </CardHeader>
             <CardContent className="grid gap-6">
-                <RadioGroup defaultValue="card" className="grid grid-cols-3 gap-4">
+                <RadioGroup disabled={disabled} defaultValue="card" className="grid grid-cols-3 gap-4">
                     <div>
                         <RadioGroupItem value="card" id="card" className="peer sr-only" aria-label="Card" />
                         <Label
@@ -66,20 +68,20 @@ const PaymentMethod = ({}: PaymentMethodProps) => {
                 </RadioGroup>
                 <div className="grid gap-2">
                     <Label htmlFor="name">ФИО</Label>
-                    <Input id="name" placeholder="Зубенко Михаил Петрович" />
+                    <Input disabled={disabled} id="name" placeholder="Зубенко Михаил Петрович" />
                 </div>
                 <div className="grid gap-2">
                     <Label htmlFor="city">Город</Label>
-                    <Input id="city" placeholder="Сицилия" />
+                    <Input disabled={disabled} id="city" placeholder="Сицилия" />
                 </div>
                 <div className="grid gap-2">
                     <Label htmlFor="number">Номер карты</Label>
-                    <Input id="number" placeholder="4400 0000 4444 0000" />
+                    <Input disabled={disabled} id="number" placeholder="4400 0000 4444 0000" />
                 </div>
                 <div className="grid grid-cols-3 gap-4">
                     <div className="grid gap-2">
                         <Label htmlFor="month">Срок действия</Label>
-                        <Select>
+                        <Select disabled={disabled}>
                             <SelectTrigger id="month" aria-label="Месяц">
                                 <SelectValue placeholder="Месяц" />
                             </SelectTrigger>
@@ -101,7 +103,7 @@ const PaymentMethod = ({}: PaymentMethodProps) => {
                     </div>
                     <div className="grid gap-2">
                         <Label htmlFor="year">Год</Label>
-                        <Select>
+                        <Select disabled={disabled}>
                             <SelectTrigger id="year" aria-label="Год">
                                 <SelectValue placeholder="Год" />
                             </SelectTrigger>
@@ -116,12 +118,14 @@ const PaymentMethod = ({}: PaymentMethodProps) => {
                     </div>
                     <div className="grid gap-2">
                         <Label htmlFor="cvc">CVC</Label>
-                        <Input id="cvc" placeholder="CVC" />
+                        <Input disabled={disabled} id="cvc" placeholder="CVC" />
                     </div>
                 </div>
             </CardContent>
             <CardFooter>
-                <Button className="w-full">Продолжить</Button>
+                <Button disabled={disabled} className="w-full">
+                    Продолжить
+                </Button>
             </CardFooter>
         </Card>
     );

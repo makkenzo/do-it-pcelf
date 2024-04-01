@@ -13,3 +13,10 @@ export interface ICard {
         descriptions: string[];
     };
 }
+
+export interface IConvertedCard {
+    title: string;
+    description: string;
+    link: string;
+    image: string;
+}

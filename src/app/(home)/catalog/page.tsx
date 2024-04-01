@@ -11,13 +11,16 @@ import {
     BreadcrumbList,
     BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
-import SideFilters from '@/components/side-filters';
+import CatalogInner from '@/components/catalog-inner';
+import Footer from '@/components/footer/footer';
 
 interface CatalogProps {}
 
 const Catalog = ({}: CatalogProps) => {
     return (
-        <div>
+        <div className="relative min-h-screen">
+            <Toaster />
+
             <Header />
 
             <div className="container px-0 mx-auto">
@@ -34,8 +37,9 @@ const Catalog = ({}: CatalogProps) => {
                 </Breadcrumb>
             </div>
 
-            <SideFilters />
-            <Toaster />
+            <CatalogInner />
+
+            <Footer className="absolute bottom-0" />
         </div>
     );
 };
