@@ -63,9 +63,9 @@ export default function Home() {
 
                 <div className="w-full mb-20 flex justify-around px-48 pt-16 bg-neutral-900">
                     <div className="text-white">
-                        <nav className="text-4xl">Ого!</nav>
+                        <nav className="text-4xl">Только у нас!</nav>
                         <span className="text-3xl flex mt-10">
-                            Это же <h3 className="text-orange-500 ml-2">бузулукский колбас!</h3>
+                            Инновационные <h3 className="text-orange-500 ml-2">решения</h3>
                         </span>
                     </div>
                     <img src={Banner.src} />

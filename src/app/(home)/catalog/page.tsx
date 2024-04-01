@@ -11,13 +11,12 @@ import { Switch } from '@/components/ui/switch';
 
 import server from '@/lib/api';
 import { ICard } from '@/types';
-import Image from 'next/image';
 
 import Header from '@/components/header/header';
 
-import Card from '@/components/card';
 import { useUser } from '@clerk/nextjs';
-import { Loader2 } from 'lucide-react';
+
+import ProductCard from '@/components/card';
 
 interface CatalogProps {}
 
@@ -44,14 +43,14 @@ const Catalog = ({}: CatalogProps) => {
         <div>
             <Header />
 
-            <nav className="mt-6 px-40 flex text-white text-lg">
+            <nav className="mt-6 mx-auto max-w-[1280px] flex text-white text-lg">
                 Главная &gt;&nbsp;<nav className="underline text-blue-600">Каталог</nav>
             </nav>
 
-            <div className="mt-12 px-40 flex">
+            <div className="mt-12 mx-auto max-w-[1280px] flex">
                 {/* Filters */}
                 <div>
-                    <div className="flex">
+                    <div className="flex mb-12">
                         <nav className="text-white text-xl">Фильтры</nav>
                         <button className="ml-14 text-blue-600 pt-1">Очистить все</button>
                     </div>
@@ -191,7 +190,7 @@ const Catalog = ({}: CatalogProps) => {
 
                 {/* {Computers} */}
                 <div className="ml-6">
-                    <div className="w-full flex justify-end pr-4">
+                    <div className="w-full flex justify-end pr-4 mb-12">
                         <Select>
                             <SelectTrigger className="w-[180px]">
                                 <SelectValue placeholder="Сортировать по:" />
@@ -204,9 +203,9 @@ const Catalog = ({}: CatalogProps) => {
                         </Select>
                     </div>
 
-                    <div className="grid grid-cols-3 gap-3">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-3">
                         {data && data.length > 0 ? (
-                            data.map((item, index) => <Card item={item} index={index} />)
+                            data.map((item, index) => <ProductCard item={item} index={index} />)
                         ) : (
                             <p>Loading..</p>
                         )}
