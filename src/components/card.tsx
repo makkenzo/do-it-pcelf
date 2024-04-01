@@ -15,10 +15,11 @@ import { toast } from 'sonner';
 
 interface ProductCardProps {
     item: ICard;
-    index: number;
+    showDeliveryInfo?: boolean;
+    minHeight?: number;
 }
 
-const ProductCard = ({ item, index }: ProductCardProps) => {
+const ProductCard = ({ item, showDeliveryInfo = false, minHeight = 500 }: ProductCardProps) => {
     const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
     const [buttonHovered, setButtonHovered] = useState(false);
     const [isPending, setIsPending] = useState(false);
@@ -57,7 +58,7 @@ const ProductCard = ({ item, index }: ProductCardProps) => {
     };
 
     return (
-        <Card className="min-h-[500px] flex flex-col justify-between">
+        <Card className={`min-h-[${minHeight}px] flex flex-col justify-between`}>
             <CardHeader>
                 {/* <CardTitle>{item.name.slice(0, 30)}..</CardTitle> */}
                 <CardDescription>{item.name}</CardDescription>
@@ -67,31 +68,35 @@ const ProductCard = ({ item, index }: ProductCardProps) => {
                     <Image src={item.image} alt="computer" height={272} width={272} />
                 </Link>
                 <div className="flex flex-col gap-2 w-full justify-between">
-                    <p className=" font-semibold text-2xl">{item.price}тг.</p>
-                    <div className="flex justify-between">
-                        <p className="flex gap-2 items-center">
-                            <Truck />
-                            {item.shipping.pickup}
-                        </p>
-                        |
-                        <p className="flex gap-2 items-center">
-                            <Package />
-                            {item.shipping.delivery}
-                        </p>
-                    </div>
+                    {showDeliveryInfo && (
+                        <div className="flex justify-between mt-4">
+                            <p className="flex gap-2 items-center">
+                                <Truck />
+                                {item.shipping.pickup}
+                            </p>
+                            |
+                            <p className="flex gap-2 items-center">
+                                <Package />
+                                {item.shipping.delivery}
+                            </p>
+                        </div>
+                    )}
                 </div>
             </CardContent>
-            <CardFooter className="flex w-full gap-4">
-                <Button
-                    disabled={isPending}
-                    className="w-full text-lg flex gap-2 items-center"
-                    onClick={() => handleAddToProductCard(item)}
-                >
-                    <ShoppingCart size={20} /> В корзину
-                </Button>
-                <Button variant="secondary" disabled={isPending}>
-                    <Heart size={20} />
-                </Button>
+            <CardFooter className="w-full gap-4 flex flex-col items-start">
+                <p className="font-semibold text-2xl">{item.price}тг.</p>
+                <div className="flex justify-between gap-4">
+                    <Button
+                        disabled={isPending}
+                        className="w-full text-lg flex gap-2 items-center"
+                        onClick={() => handleAddToProductCard(item)}
+                    >
+                        <ShoppingCart size={20} /> В корзину
+                    </Button>
+                    <Button variant="secondary" disabled={isPending}>
+                        <Heart size={20} />
+                    </Button>
+                </div>
             </CardFooter>
         </Card>
     );
