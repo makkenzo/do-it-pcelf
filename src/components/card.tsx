@@ -10,6 +10,8 @@ import { useEffect, useState } from 'react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Heart, Package, ShoppingCart, Truck } from 'lucide-react';
 import { Button } from './ui/button';
+import { Toaster } from './ui/sonner';
+import { toast } from 'sonner';
 
 interface ProductCardProps {
     item: ICard;
@@ -19,6 +21,7 @@ interface ProductCardProps {
 const ProductCard = ({ item, index }: ProductCardProps) => {
     const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
     const [buttonHovered, setButtonHovered] = useState(false);
+    const [isPending, setIsPending] = useState(false);
 
     const { user } = useUser();
     const router = useRouter();
@@ -27,8 +30,11 @@ const ProductCard = ({ item, index }: ProductCardProps) => {
         console.log('🚀 ~ ProductCard ~ item:', item);
     }, []);
 
-    const handleAddToProductCard = (item: ICard) => {
+    const handleAddToProductCard = async (item: ICard) => {
+        setIsPending(true);
+
         if (!user) {
+            setIsPending(false);
             return;
         }
 
@@ -38,46 +44,59 @@ const ProductCard = ({ item, index }: ProductCardProps) => {
                 user_id: user.id,
             };
 
-            const response = server.post('/user/add-to-cart', data);
+            const response = await server.post('/user/add-to-cart', data);
+
+            if (response.status === 200) {
+                toast.success('Товар успешно добавлен в корозину!');
+            }
         } catch (error) {
             console.error(error);
+        } finally {
+            setIsPending(false);
         }
     };
 
     return (
-        <Card className="min-h-[500px] flex flex-col justify-between">
-            <CardHeader>
-                {/* <CardTitle>{item.name.slice(0, 30)}..</CardTitle> */}
-                <CardDescription>{item.name}</CardDescription>
-            </CardHeader>
-            <CardContent>
-                <Link href={`/product/${item._id}`}>
-                    <Image src={item.image} alt="computer" height={272} width={272} />
-                </Link>
-                <div className="flex flex-col gap-2 w-full justify-between">
-                    <p className=" font-semibold text-2xl">{item.price}тг.</p>
-                    <div className="flex justify-between">
-                        <p className="flex gap-2 items-center">
-                            <Truck />
-                            {item.shipping.pickup}
-                        </p>
-                        |
-                        <p className="flex gap-2 items-center">
-                            <Package />
-                            {item.shipping.delivery}
-                        </p>
+        <>
+            <Card className="min-h-[500px] flex flex-col justify-between">
+                <CardHeader>
+                    {/* <CardTitle>{item.name.slice(0, 30)}..</CardTitle> */}
+                    <CardDescription>{item.name}</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <Link href={`/product/${item._id}`}>
+                        <Image src={item.image} alt="computer" height={272} width={272} />
+                    </Link>
+                    <div className="flex flex-col gap-2 w-full justify-between">
+                        <p className=" font-semibold text-2xl">{item.price}тг.</p>
+                        <div className="flex justify-between">
+                            <p className="flex gap-2 items-center">
+                                <Truck />
+                                {item.shipping.pickup}
+                            </p>
+                            |
+                            <p className="flex gap-2 items-center">
+                                <Package />
+                                {item.shipping.delivery}
+                            </p>
+                        </div>
                     </div>
-                </div>
-            </CardContent>
-            <CardFooter className="flex w-full gap-4">
-                <Button className="w-full text-lg flex gap-2 items-center">
-                    <ShoppingCart size={20} /> В корзину
-                </Button>
-                <Button variant="secondary">
-                    <Heart size={20} />
-                </Button>
-            </CardFooter>
-        </Card>
+                </CardContent>
+                <CardFooter className="flex w-full gap-4">
+                    <Button
+                        disabled={isPending}
+                        className="w-full text-lg flex gap-2 items-center"
+                        onClick={() => handleAddToProductCard(item)}
+                    >
+                        <ShoppingCart size={20} /> В корзину
+                    </Button>
+                    <Button variant="secondary" disabled={isPending}>
+                        <Heart size={20} />
+                    </Button>
+                </CardFooter>
+            </Card>
+            <Toaster />
+        </>
     );
 };
 
