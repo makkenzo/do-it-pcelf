@@ -3,7 +3,6 @@ import { Inter } from 'next/font/google';
 import '@/app/globals.css';
 import { ClerkProvider } from '@clerk/nextjs';
 import { Suspense } from 'react';
-import Loading from './loading';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -18,15 +17,8 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        // <html lang="en">
-        //     <ClerkProvider>
-        //         <body className={inter.className}>{children}</body>
-        //     </ClerkProvider>
-        // </html>
         <html lang="en">
-            <body className={inter.className}>
-                <Suspense fallback={<Loading />}>{children}</Suspense>
-            </body>
+            <body className={inter.className}>{children}</body>
         </html>
     );
 }
