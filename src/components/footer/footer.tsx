@@ -12,8 +12,8 @@ const Footer = ({ className }: FooterProps) => {
                 <Button variant="link">@makkenzo</Button>
             </Link>
             <span className="text-3xl pb-2">+</span>
-            <Link href="https://github.com/vladushka_aladushka" target="_blank">
-                <Button variant="link">@vlad</Button>
+            <Link href="https://github.com/vladgerman27" target="_blank">
+                <Button variant="link">@vladgerman27</Button>
             </Link>
         </footer>
     );

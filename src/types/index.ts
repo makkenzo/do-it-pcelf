@@ -9,9 +9,9 @@ export interface ICard {
         delivery: string;
     };
     specs: {
-        headers: string[];
-        descriptions: string[];
-    };
+        headers: string;
+        descriptions: string;
+    }[];
 }
 
 export interface IConvertedCard {
