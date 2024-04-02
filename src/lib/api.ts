@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { ClerkProvider } from '@clerk/nextjs';
 
 const isDev = process.env.NODE_ENV === 'development';
 

@@ -9,10 +9,16 @@ export interface ICard {
         delivery: string;
     };
     specs: {
-        headers: string;
-        descriptions: string;
-    }[];
+        descriptions: Description[];
+    };
 }
+
+export interface Description {
+    header: string;
+    title: string;
+    description: string;
+}
+
 
 export interface IConvertedCard {
     title: string;
