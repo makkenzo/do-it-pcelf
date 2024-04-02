@@ -10,7 +10,6 @@ const inter = Inter({
 
 type Props = {
     params: { productId: string };
-    searchParams: { [key: string]: string | string[] | undefined };
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
